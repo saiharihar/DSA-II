@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int height(TreeNode *root) {
+        if (root == NULL) {
+            return 0;
+        }
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
+        return 1 + max(leftHeight, rightHeight);
+    }
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        if (root == NULL) {
+            return 0;
+        }
+        
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
+        
+        int diameterRoot = leftHeight + rightHeight;
+        
+        int diameterLeft = diameterOfBinaryTree(root->left);
+        int diameterRight = diameterOfBinaryTree(root->right);
+        
+        return max(diameterRoot, max(diameterLeft, diameterRight));
+    }
+};

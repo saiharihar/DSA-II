@@ -1,0 +1,16 @@
+int SolveUsingRecursion(vector<int> &arr , int curr , int prev){
+    //base case 
+    if(curr >= arr.size()){
+        return 0;
+    }
+
+    //include 
+       int include = 0;
+       if(prev == -1 || arr[curr] > arr[prev])
+       include = 1 + SolveUsingRecursion(arr , curr+1 , curr);
+    //exclude
+     int exclude = 0 + SolveUsingRecursion(arr , curr +1 , prev);
+
+     int ans = max(include , exclude);
+     return ans; 
+  }

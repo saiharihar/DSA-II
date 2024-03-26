@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool help(TreeNode* root, long long minval, long long maxval) {
+        if (root == nullptr) {
+            return true;
+        }
+        if (root->val <= minval || root->val >= maxval) {
+            return false;
+        }
+        return help(root->left, minval, root->val) && help(root->right, root->val, maxval);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return help(root, LLONG_MIN, LLONG_MAX);
+    }
+};

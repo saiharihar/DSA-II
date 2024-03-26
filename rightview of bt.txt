@@ -1,0 +1,20 @@
+class Solution {
+public:
+vector<int>k;
+    void solve(TreeNode*root,int level,int* max_level){
+      if(root==NULL){
+        return;
+      }
+      if(*max_level<level){
+        k.push_back(root->val);
+        *max_level=level;
+      }
+      solve(root->right,level+1,max_level);
+       solve(root->left,level+1,max_level);
+  }
+    vector<int> rightSideView(TreeNode* root) {
+        int maxlev=0;
+         solve(root,1,&maxlev);
+         return k;
+    }
+};

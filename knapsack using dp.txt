@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// Function to solve 0/1 knapsack problem
+int knapsack(int W, const vector<int>& wt, const vector<int>& val, int n) {
+    // Create a 2D array to store the results of subproblems
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    // Build dp table bottom-up
+    for (int i = 1; i <= n; ++i) {
+        for (int w = 1; w <= W; ++w) {
+            // If the current item's weight is more than the current capacity 'w',
+            // then this item cannot be included in the knapsack
+            if (wt[i - 1] > w) {
+                dp[i][w] = dp[i - 1][w];
+            } else {
+                // Otherwise, check if including the current item gives a better value
+                // than excluding it
+                dp[i][w] = max(dp[i - 1][w], val[i - 1] + dp[i - 1][w - wt[i - 1]]);
+            }
+        }
+    }
+
+    // The bottom-right cell of the dp table contains the maximum value that can be obtained
+    return dp[n][W];
+}
+
+int main() {
+    int W; // Knapsack capacity
+    int n; // Number of items
+
+    cout << "Enter knapsack capacity: ";
+    cin >> W;
+
+    cout << "Enter number of items: ";
+    cin >> n;
+
+    vector<int> val(n); // Values of items
+    vector<int> wt(n);  // Weights of items
+
+    cout << "Enter values of items:\n";
+    for (int i = 0; i < n; ++i) {
+        cin >> val[i];
+    }
+
+    cout << "Enter weights of items:\n";
+    for (int i = 0; i < n; ++i) {
+        cin >> wt[i];
+    }
+
+    // Solve knapsack problem and print the maximum value
+    cout << "Maximum value that can be obtained: " << knapsack(W, wt, val, n) << endl;
+
+    return 0;
+}
