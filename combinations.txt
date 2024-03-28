@@ -1,0 +1,24 @@
+class Solution {
+public:
+
+    void solve(vector<int>&cand,int tar,vector<vector<int>>&ans,vector<int>&path,int s){
+        if(tar==0){
+            ans.push_back(path);
+            return;
+        }
+        if(tar<0){
+            return;
+        }
+        for(int i=s;i<cand.size();i++){
+            path.push_back(cand[i]);
+            solve(cand,tar-cand[i],ans,path,i);
+            path.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& cand, int tar) {
+        vector<vector<int>>ans;
+        vector<int>path;
+        solve(cand,tar,ans,path,0);
+        return ans;
+    }
+};

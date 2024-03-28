@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+
+void solve(int n,int open,int closed,string s){
+  if(closed==n){
+    cout<<s<<" ";
+    return;
+  }
+  else{
+    if(open<n){
+      solve(n,open+1,closed,s+"(");
+    }
+    if(closed<open){
+      solve(n,open,closed+1,s+")");
+    }
+ }
+}
+int main() 
+{
+int n;
+  cin>>n;
+  string s="";
+  solve(n,0,0,s);
+}

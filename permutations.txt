@@ -1,0 +1,34 @@
+class Solution {
+public:
+
+    void form_permutations(vector<int>& nums, vector<bool>& used, vector<int>& permutation, vector<vector<int>>& solution) {
+
+        if (permutation.size() == nums.size()) {
+            solution.push_back(permutation);
+        }
+        else {
+            
+            for (int i = 0; i < nums.size(); i++) {
+                if (!used[i]) {
+
+                    used[i] = true;
+                    permutation.push_back(nums[i]);
+                    form_permutations(nums, used, permutation, solution);
+                    permutation.pop_back();
+                    used[i] = false;
+                }
+            }
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        vector<int> permutation;
+        vector<vector<int>> solution;
+        vector<bool> used(nums.size(), false);
+
+        form_permutations(nums, used, permutation, solution);
+        
+        return solution;
+    }
+};

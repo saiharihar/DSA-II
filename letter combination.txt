@@ -1,0 +1,41 @@
+#include <vector>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
+class Solution {
+public:
+    void solve(unordered_map<char,vector<char>>& m1, vector<string>& ans, string digits, string temp, int index, int n){
+        if(temp.size() == n){
+            ans.push_back(temp);
+            return;
+        }
+        for(int i = index; i < n; i++){
+            for(char j : m1[digits[i]]){
+                string new_temp = temp; 
+                new_temp.push_back(j);
+                solve(m1, ans, digits, new_temp, i + 1, n); 
+            }
+        }
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        int n = digits.size();
+        unordered_map<char,vector<char>> m1;
+        m1['2'] = {'a','b','c'};
+        m1['3'] = {'d','e','f'};
+        m1['4'] = {'g','h','i'};
+        m1['5'] = {'j','k','l'};
+        m1['6'] = {'m','n','o'};
+        m1['7'] = {'p','q','r','s'};
+        m1['8'] = {'t','u','v'};
+        m1['9'] = {'w','x','y','z'};
+        vector<string> ans;
+        if(n == 0){
+            return ans;
+        }
+        solve(m1, ans, digits, "", 0, n); 
+        return ans;
+    }
+};

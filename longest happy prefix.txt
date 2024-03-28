@@ -1,0 +1,21 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string longestHappyPrefixLength(string s) {
+    int n = s.length();
+    int len = 0; // Length of the longest happy prefix found so far
+    for (int i = 1; i < n; i++) {
+        if (s.substr(0, i) == s.substr(n - i, i)) {
+            len = i;
+        }
+    }
+    return s.substr(0,len);
+}
+
+int main() {
+    string s;
+    cin >> s;
+    cout << longestHappyPrefixLength(s) << endl;
+    return 0;
+}
